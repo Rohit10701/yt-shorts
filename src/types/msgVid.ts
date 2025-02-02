@@ -39,7 +39,7 @@ export interface MessageVideoData {
  */
 export const messageVideoAIPrompt = {
     contactname: 'Generate the contact name of the text message story. Use JSON format. Use this template: {"contactname": ""}',
-    script: 'Generate the script for the text message story. Use JSON object array format. Use this template: {"script": [{"voice": "", "message": "", "msgtype": ""}]}. "voice" will be "male" or "female", "msgtype" will be "receiver" or "sender". "message" will be the message text. The receiver will be on the left and the sender will be on the right. The receiver is the contact name talking to the sender. Make the message short and simple, in order to fit in video, and like real text messages.',
+    script: 'Generate the script for the text message story. Use JSON object array format. Use this template: {"script": [{"voice": "", "message": "", "msgtype": ""}]}. "voice" will be "male" or "female", "msgtype" will be "receiver" or "sender". "message" will be the message text. The receiver will be on the left and the sender will be on the right. The receiver is the contact name talking to the sender. Make the message short and simple, in order to fit in video, and like real text messages. make sure the messages are a full conversation with at least 15 messages, and make it interesting and suspenseful.',
     extra: 'Generate the extra information to be spoken at the end of the video. Do a simple summary of the story and say goodbye Use JSON format. Use this template: {"extra": ""}',
 };
 

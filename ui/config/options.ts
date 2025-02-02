@@ -96,7 +96,7 @@ export interface APIVoiceOptions {
 export const defaultVideoOptions: VideoOptions = {
     aiType: "OllamaAIGen",
     aiModel: "llama3.2",
-    voiceGenType: "BuiltinTTS",
+    voiceGenType: "ElevenLabs",
     imageGenType: "GoogleScraper",
     orientation: "vertical",
     useBgMusic: true,

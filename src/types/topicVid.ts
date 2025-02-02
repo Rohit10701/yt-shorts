@@ -33,7 +33,12 @@ export interface TopicVideoData {
  * Prompt will be given to AI and result will be placed inside JSON field of data.
  */
 export const topicVideoAIPrompt = {
-    text: 'Generate what will be spoken in the video based on topic. Use JSON format. Use this template: {"text": ""}',
+    text: `Generate a script for a 1-minute video that is concise, engaging, and suspenseful. The initial part should hook the audience with an intriguing story, followed by a suspenseful buildup. Ensure the content remains engaging throughout.
+
+Provide the output in the following JSON format:
+{"text": "YOUR_SCRIPT_HERE"}
+
+The entire script should be inside the text field as a single string, without breaking it into multiple objects or arrays. Do not include any sound effect or music instructions—just focus on the story. The content should be a continuous string inside the text field.`,
     // start_script: "Generate what will be spoken at start of the video",
     // end_script: "Generate what will be spoken at end of the video",
     images: 'Generate images (search terms) for the video based on topic. Use JSON array format. Only valid JSON, no extra info. Use this template: {"images": ["", ""]}',
@@ -118,16 +123,16 @@ export class TopicVideo extends VideoGen {
             throw Error('JSON data is missing required "images" field!');
         }
 
-        let imgs: string[] = [];
+        // let imgs: string[] = [];
 
-        if (this.jsonData.imgOverride) {
-            this.log('Using base64 encoded images...');
-            imgs = await this.saveBase64Images(this.jsonData.imgOverride);
-            console.log(imgs)
-        } else {
-            this.log('Creating images from JSON data...');
-            imgs = await this.generateImages(images);
-        }
+        // if (this.jsonData.imgOverride) {
+        //     this.log('Using base64 encoded images...');
+        //     imgs = await this.saveBase64Images(this.jsonData.imgOverride);
+        //     console.log(imgs)
+        // } else {
+        //     this.log('Creating images from JSON data...');
+        //     imgs = await this.generateImages(images);
+        // }
 
         this.log('Creating subtitles from text...');
         const srtFile = path.join(this.tempPath, 'audio16k.wav.srt');
@@ -177,20 +182,20 @@ export class TopicVideo extends VideoGen {
         }
 
         // Add images
-        const album = new FFAlbum({
-            list: imgs,
-            x: width / 2,
-            y: (this.useBgVideo) ? height / 2 - 100 : height / 2,
-            width: (this.useBgVideo) ? 512 : width,
-            height: (this.useBgVideo) ? 512 : height,
-            showCover: false,
-        });
+        // const album = new FFAlbum({
+        //     list: imgs,
+        //     x: width / 2,
+        //     y: (this.useBgVideo) ? height / 2 - 100 : height / 2,
+        //     width: (this.useBgVideo) ? 512 : width,
+        //     height: (this.useBgVideo) ? 512 : height,
+        //     showCover: false,
+        // });
 
-        album.setTransition("fadeIn")
-        album.setTransTime(0.2);
-        this.log("Album duration is " + Math.round(full_duration / imgs.length))
-        album.setDuration(Math.round(full_duration / imgs.length));
-        scene.addChild(album);
+        // album.setTransition("fadeIn")
+        // album.setTransTime(0.2);
+        // this.log("Album duration is " + Math.round(full_duration / imgs.length))
+        // album.setDuration(Math.round(full_duration / imgs.length));
+        // scene.addChild(album);
 
         // Add subtitles
         const subStyle = {
@@ -199,11 +204,11 @@ export class TopicVideo extends VideoGen {
             stroke: this.subtitleOptions?.strokeColor ?? '#000000',
             strokeThickness: this.subtitleOptions?.strokeWidth ?? 20,
         }
-
+        
         const subObj = new FFSubtitle({
             path: path.join(this.tempPath, 'audio16k.wav.srt'),
             x: width / 2,
-            y: (height / 2) + 200,
+            y: (height / 2),
             fontSize: this.subtitleOptions?.fontSize ?? 80,
             backgroundColor: this.subtitleOptions?.strokeColor ?? '#000000',
             color: this.subtitleOptions?.fontColor ?? '#fff',

@@ -3,7 +3,6 @@
 import ollama, { ModelResponse } from "ollama";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import OpenAI from 'openai';
-import { ChatCompletionMessageParam } from "openai/resources";
 
 import { VideoGenType } from "./videogen";
 import { INITIAL_AI_PROMPT, messageVideoAIPrompt, quizVideoAIPrompt, rankVideoAIPrompt, ratherVideoAIPrompt, topicVideoAIPrompt } from "./const";
